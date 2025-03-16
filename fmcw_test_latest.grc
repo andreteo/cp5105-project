@@ -309,6 +309,22 @@ blocks:
     coordinate: [1464, 680.0]
     rotation: 0
     state: disabled
+- name: blocks_complex_to_real_1
+  id: blocks_complex_to_real
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1144, 800.0]
+    rotation: 0
+    state: enabled
 - name: blocks_multiply_conjugate_cc_0
   id: blocks_multiply_conjugate_cc
   parameters:
@@ -654,7 +670,7 @@ blocks:
     tr_level: '0.0'
     tr_mode: qtgui.TRIG_MODE_FREE
     tr_tag: '""'
-    type: complex
+    type: float
     units: dB
     update_time: '0.10'
     width1: '1'
@@ -674,7 +690,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1128, 912.0]
+    coordinate: [1376, 1008.0]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_1
@@ -1091,7 +1107,7 @@ blocks:
     tr_mode: qtgui.TRIG_MODE_FREE
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
-    type: complex
+    type: float
     update_time: '0.10'
     width1: '1'
     width10: '1'
@@ -1111,7 +1127,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1128, 824.0]
+    coordinate: [1376, 912.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_2
@@ -1359,14 +1375,14 @@ blocks:
     name: '""'
     nconnections: '1'
     showports: 'False'
-    type: complex
+    type: float
     update_time: '0.10'
     wintype: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1128, 736.0]
+    coordinate: [1392, 816.0]
     rotation: 0
     state: enabled
 
@@ -1375,6 +1391,9 @@ connections:
 - [band_reject_filter_0, '0', blocks_complex_to_real_0, '0']
 - [band_reject_filter_0, '0', blocks_multiply_const_vxx_0, '0']
 - [blocks_complex_to_real_0, '0', audio_sink_0, '0']
+- [blocks_complex_to_real_1, '0', qtgui_freq_sink_x_0, '0']
+- [blocks_complex_to_real_1, '0', qtgui_time_sink_x_1, '0']
+- [blocks_complex_to_real_1, '0', qtgui_waterfall_sink_x_0, '0']
 - [blocks_multiply_conjugate_cc_0, '0', low_pass_filter_0, '0']
 - [blocks_multiply_conjugate_cc_0, '0', qtgui_freq_sink_x_1, '0']
 - [blocks_multiply_conjugate_cc_0, '0', qtgui_time_sink_x_2, '0']
@@ -1387,9 +1406,7 @@ connections:
 - [blocks_vco_c_0, '0', qtgui_time_sink_x_0, '0']
 - [iio_pluto_source_0, '0', blocks_multiply_conjugate_cc_0, '0']
 - [low_pass_filter_0, '0', band_reject_filter_0, '0']
-- [low_pass_filter_0, '0', qtgui_freq_sink_x_0, '0']
-- [low_pass_filter_0, '0', qtgui_time_sink_x_1, '0']
-- [low_pass_filter_0, '0', qtgui_waterfall_sink_x_0, '0']
+- [low_pass_filter_0, '0', blocks_complex_to_real_1, '0']
 
 metadata:
   file_format: 1
