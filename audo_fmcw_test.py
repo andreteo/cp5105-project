@@ -66,8 +66,8 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.pi = pi = math.pi
-        self.bw = bw = 1e6
-        self.vco_sensitivity = vco_sensitivity = bw * pi
+        self.bw = bw = 100000
+        self.vco_sensitivity = vco_sensitivity = 2*bw*pi
         self.tx_row = tx_row = 0
         self.tx_attenuation = tx_attenuation = 10
         self.samp_rate = samp_rate = 2e6
@@ -138,7 +138,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         for c in range(2, 3):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.qtgui_time_sink_x_2 = qtgui.time_sink_c(
-            1024, #size
+            (1024*2), #size
             samp_rate, #samp_rate
             "Rx Time Domain", #name
             1, #number of inputs
@@ -248,7 +248,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.qtgui_time_sink_x_0 = qtgui.time_sink_c(
-            1024, #size
+            (1024*2), #size
             samp_rate, #samp_rate
             "Tx Time Domain", #name
             1, #number of inputs
@@ -490,7 +490,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
             firdes.low_pass(
                 1,
                 samp_rate,
-                2e3,
+                5e3,
                 1e3,
                 window.WIN_HAMMING,
                 6.76))
@@ -506,7 +506,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         self.iio_pluto_source_0.set_filter_params('Auto', '', 0, 0)
         self.iio_pluto_sink_0 = iio.fmcomms2_sink_fc32('ip:192.168.2.1' if 'ip:192.168.2.1' else iio.get_pluto_uri(), [True, True], 32768, False)
         self.iio_pluto_sink_0.set_len_tag_key('')
-        self.iio_pluto_sink_0.set_bandwidth(int(bw))
+        self.iio_pluto_sink_0.set_bandwidth(2000000)
         self.iio_pluto_sink_0.set_frequency(2400000000)
         self.iio_pluto_sink_0.set_samplerate(int(samp_rate))
         self.iio_pluto_sink_0.set_attenuation(0, tx_attenuation)
@@ -530,12 +530,12 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_multiply_conjugate_cc_0, 0), (self.low_pass_filter_0, 0))
         self.connect((self.blocks_multiply_conjugate_cc_0, 0), (self.qtgui_freq_sink_x_1, 0))
         self.connect((self.blocks_multiply_conjugate_cc_0, 0), (self.qtgui_time_sink_x_2, 0))
-        self.connect((self.blocks_vco_c_0, 0), (self.blocks_multiply_conjugate_cc_0, 0))
+        self.connect((self.blocks_vco_c_0, 0), (self.blocks_multiply_conjugate_cc_0, 1))
         self.connect((self.blocks_vco_c_0, 0), (self.iio_pluto_sink_0, 0))
         self.connect((self.blocks_vco_c_0, 0), (self.qtgui_const_sink_x_2, 0))
         self.connect((self.blocks_vco_c_0, 0), (self.qtgui_freq_sink_x_3, 0))
         self.connect((self.blocks_vco_c_0, 0), (self.qtgui_time_sink_x_0, 0))
-        self.connect((self.iio_pluto_source_0, 0), (self.blocks_multiply_conjugate_cc_0, 1))
+        self.connect((self.iio_pluto_source_0, 0), (self.blocks_multiply_conjugate_cc_0, 0))
         self.connect((self.low_pass_filter_0, 0), (self.qtgui_freq_sink_x_0, 0))
         self.connect((self.low_pass_filter_0, 0), (self.qtgui_time_sink_x_1, 0))
         self.connect((self.low_pass_filter_0, 0), (self.qtgui_waterfall_sink_x_0, 0))
@@ -554,7 +554,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
 
     def set_pi(self, pi):
         self.pi = pi
-        self.set_vco_sensitivity(self.bw * self.pi)
+        self.set_vco_sensitivity(2*self.bw*self.pi)
 
     def get_bw(self):
         return self.bw
@@ -562,8 +562,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
     def set_bw(self, bw):
         self.bw = bw
         self.set_delta_r(3e8/(2*self.bw))
-        self.set_vco_sensitivity(self.bw * self.pi)
-        self.iio_pluto_sink_0.set_bandwidth(int(self.bw))
+        self.set_vco_sensitivity(2*self.bw*self.pi)
 
     def get_vco_sensitivity(self):
         return self.vco_sensitivity
@@ -592,7 +591,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
         self.iio_pluto_sink_0.set_samplerate(int(self.samp_rate))
         self.iio_pluto_source_0.set_samplerate(int(self.samp_rate))
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 2e3, 1e3, window.WIN_HAMMING, 6.76))
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 5e3, 1e3, window.WIN_HAMMING, 6.76))
         self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.qtgui_freq_sink_x_1.set_frequency_range(0, self.samp_rate)
         self.qtgui_freq_sink_x_3.set_frequency_range(0, self.samp_rate)

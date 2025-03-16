@@ -82,12 +82,12 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 1e6
+    value: '100000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [536, 64.0]
+    coordinate: [536, 72.0]
     rotation: 0
     state: enabled
 - name: delta_r
@@ -220,7 +220,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: bw * pi
+    value: 2*bw*pi
   states:
     bus_sink: false
     bus_source: false
@@ -367,7 +367,7 @@ blocks:
     affinity: ''
     alias: ''
     attenuation1: tx_attenuation
-    bandwidth: int(bw)
+    bandwidth: '2000000'
     buffer_size: '32768'
     comment: ''
     cyclic: 'False'
@@ -392,7 +392,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    bandwidth: int(bw)
+    bandwidth: '2000000'
     bbdc: 'True'
     buffer_size: '32768'
     comment: ''
@@ -438,7 +438,7 @@ blocks:
     alias: ''
     beta: '6.76'
     comment: ''
-    cutoff_freq: 2e3
+    cutoff_freq: 5e3
     decim: '1'
     gain: '1'
     interp: '1'
@@ -975,7 +975,7 @@ blocks:
     marker9: '-1'
     name: '"Tx Time Domain"'
     nconnections: '1'
-    size: '1024'
+    size: 1024*2
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -1169,7 +1169,7 @@ blocks:
     marker9: '-1'
     name: '"Rx Time Domain"'
     nconnections: '1'
-    size: '1024'
+    size: 1024*2
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -1380,12 +1380,12 @@ connections:
 - [blocks_multiply_conjugate_cc_0, '0', qtgui_time_sink_x_2, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_freq_sink_x_2, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_time_sink_x_3, '0']
-- [blocks_vco_c_0, '0', blocks_multiply_conjugate_cc_0, '0']
+- [blocks_vco_c_0, '0', blocks_multiply_conjugate_cc_0, '1']
 - [blocks_vco_c_0, '0', iio_pluto_sink_0, '0']
 - [blocks_vco_c_0, '0', qtgui_const_sink_x_2, '0']
 - [blocks_vco_c_0, '0', qtgui_freq_sink_x_3, '0']
 - [blocks_vco_c_0, '0', qtgui_time_sink_x_0, '0']
-- [iio_pluto_source_0, '0', blocks_multiply_conjugate_cc_0, '1']
+- [iio_pluto_source_0, '0', blocks_multiply_conjugate_cc_0, '0']
 - [low_pass_filter_0, '0', band_reject_filter_0, '0']
 - [low_pass_filter_0, '0', qtgui_freq_sink_x_0, '0']
 - [low_pass_filter_0, '0', qtgui_time_sink_x_1, '0']
