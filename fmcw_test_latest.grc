@@ -267,9 +267,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1208, 896.0]
+    coordinate: [1144, 864.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_multiply_conjugate_cc_0
   id: blocks_multiply_conjugate_cc
   parameters:
@@ -649,7 +649,7 @@ blocks:
     tr_level: '0.0'
     tr_mode: qtgui.TRIG_MODE_FREE
     tr_tag: '""'
-    type: float
+    type: complex
     units: dB
     update_time: '0.10'
     width1: '1'
@@ -669,7 +669,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1464, 1152.0]
+    coordinate: [1464, 1144.0]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_1
@@ -1005,7 +1005,7 @@ blocks:
     tr_mode: qtgui.TRIG_MODE_FREE
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
-    type: float
+    type: complex
     update_time: '0.10'
     width1: '1'
     width10: '1'
@@ -1122,7 +1122,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1344, 720.0]
+    coordinate: [1296, 712.0]
     rotation: 0
     state: enabled
 - name: qtgui_waterfall_sink_x_0
@@ -1189,10 +1189,9 @@ blocks:
 
 connections:
 - [analog_sig_source_x_0, '0', blocks_vco_c_0, '0']
-- [blocks_complex_to_real_1, '0', qtgui_freq_sink_x_0, '0']
-- [blocks_complex_to_real_1, '0', qtgui_time_sink_x_1, '0']
 - [blocks_complex_to_real_1, '0', qtgui_waterfall_sink_x_0, '0']
-- [blocks_multiply_conjugate_cc_0, '0', blocks_complex_to_real_1, '0']
+- [blocks_multiply_conjugate_cc_0, '0', qtgui_freq_sink_x_0, '0']
+- [blocks_multiply_conjugate_cc_0, '0', qtgui_time_sink_x_1, '0']
 - [blocks_vco_c_0, '0', blocks_multiply_conjugate_cc_0, '1']
 - [blocks_vco_c_0, '0', iio_pluto_sink_0, '0']
 - [blocks_vco_c_0, '0', qtgui_const_sink_x_2, '0']

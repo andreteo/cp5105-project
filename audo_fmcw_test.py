@@ -154,7 +154,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.qtgui_time_sink_x_1 = qtgui.time_sink_f(
+        self.qtgui_time_sink_x_1 = qtgui.time_sink_c(
             1024, #size
             samp_rate, #samp_rate
             "", #name
@@ -189,9 +189,12 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
             -1, -1, -1, -1, -1]
 
 
-        for i in range(1):
+        for i in range(2):
             if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_1.set_line_label(i, "Data {0}".format(i))
+                if (i % 2 == 0):
+                    self.qtgui_time_sink_x_1.set_line_label(i, "Re{{Data {0}}}".format(i/2))
+                else:
+                    self.qtgui_time_sink_x_1.set_line_label(i, "Im{{Data {0}}}".format(i/2))
             else:
                 self.qtgui_time_sink_x_1.set_line_label(i, labels[i])
             self.qtgui_time_sink_x_1.set_line_width(i, widths[i])
@@ -353,7 +356,7 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(1, 2):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.qtgui_freq_sink_x_0 = qtgui.freq_sink_f(
+        self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
             1024, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
@@ -374,7 +377,6 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0.set_fft_window_normalized(False)
 
 
-        self.qtgui_freq_sink_x_0.set_plot_pos_half(not True)
 
         labels = ['', '', '', '', '',
             '', '', '', '', '']
@@ -429,15 +431,13 @@ class audo_fmcw_test(gr.top_block, Qt.QWidget):
         self.epy_block_0 = epy_block_0.blk(samp_rate=samp_rate, bw=bw, duration=duration, total_samples=samp_rate * duration, duty_cycle=0.7)
         self.blocks_vco_c_0 = blocks.vco_c(samp_rate, vco_sensitivity, 1.0)
         self.blocks_multiply_conjugate_cc_0 = blocks.multiply_conjugate_cc(1)
-        self.blocks_complex_to_real_1 = blocks.complex_to_real(1)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_complex_to_real_1, 0), (self.qtgui_freq_sink_x_0, 0))
-        self.connect((self.blocks_complex_to_real_1, 0), (self.qtgui_time_sink_x_1, 0))
-        self.connect((self.blocks_multiply_conjugate_cc_0, 0), (self.blocks_complex_to_real_1, 0))
+        self.connect((self.blocks_multiply_conjugate_cc_0, 0), (self.qtgui_freq_sink_x_0, 0))
+        self.connect((self.blocks_multiply_conjugate_cc_0, 0), (self.qtgui_time_sink_x_1, 0))
         self.connect((self.blocks_vco_c_0, 0), (self.blocks_multiply_conjugate_cc_0, 1))
         self.connect((self.blocks_vco_c_0, 0), (self.iio_pluto_sink_0, 0))
         self.connect((self.blocks_vco_c_0, 0), (self.qtgui_freq_sink_x_3, 0))
