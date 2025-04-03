@@ -113,7 +113,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 440.0]
+    coordinate: [64, 440.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle2_1
@@ -134,7 +134,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [440, 472.0]
+    coordinate: [608, 472.0]
     rotation: 0
     state: enabled
 - name: blocks_vco_c_0
@@ -152,7 +152,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [248, 464.0]
+    coordinate: [416, 464.0]
     rotation: 0
     state: enabled
 - name: import_0
@@ -189,7 +189,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [696, 432.0]
+    coordinate: [864, 432.0]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_3
@@ -270,7 +270,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [952, 584.0]
+    coordinate: [1120, 584.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -367,7 +367,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [952, 456.0]
+    coordinate: [1120, 456.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_1
@@ -464,7 +464,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 600.0]
+    coordinate: [248, 608.0]
     rotation: 0
     state: enabled
 

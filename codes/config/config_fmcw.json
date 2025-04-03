@@ -1,0 +1,26 @@
+{
+  "sdr_config": {
+    "device": "ADALM-Pluto",
+    "uri": "ip:192.168.2.1",
+    "sample_rate": 1e6,
+    "center_frequency": 1e3,
+    "tx_lo": 2.4e9,
+    "rx_lo": 2.4e9,
+    "tx_hardwaregain_chan0": -10,
+    "rx_hardwaregain_chan0": 40,
+    "gain_control_mode_chan0": "manual",
+    "tx_cyclic_buffer": 1,
+    "bw": 10e3
+  },
+  "signal_config": {
+    "type": "fmcw",
+    "amplitude_re": 1,
+    "amplitude_im": 1
+  },
+  "record_config": {
+    "duration_ms": 10,
+    "total_duration_sec": 1,
+    "output_file": "raw_data",
+    "file_ext": "h5"
+  }
+}
